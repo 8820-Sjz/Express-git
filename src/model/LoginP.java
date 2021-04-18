@@ -91,7 +91,6 @@ public class LoginP extends GridPane{
 					String s = client.login(request);
 					System.out.println("注册结果:"+s);
 					//if(s.equals("true")) {newShow();}
-
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
