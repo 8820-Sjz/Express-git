@@ -34,7 +34,8 @@ public class DataPane extends BorderPane{
     private void buildtoolBox() {
         toolBox = new HBox();
 
-        txf = new TextField("例如：关键字 = 查询内容");
+        txf = new TextField();
+        txf.setPromptText("例如：关键字 = 查询内容");
 //        txf.setOnKeyPressed(event -> {
 //            txf.deleteText(0,txf.getText().length());
 //            System.out.println(1);
