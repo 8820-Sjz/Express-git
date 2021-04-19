@@ -67,7 +67,6 @@ public class Login {
             return "true";
         }
         System.out.println("Ôö¼ÓÊ§°Ü£º"+id+","+pass);
-
         return "false";
     }
 }
