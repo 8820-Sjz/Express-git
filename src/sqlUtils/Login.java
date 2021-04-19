@@ -6,12 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Login {
     private DBConnection con = new DBConnection();
     private Statement statement;
     private String id;
     private String pass;
+    //private Random random = new Random();
 
     public Login()throws SQLException {
         statement = this.con.getCon().createStatement();
@@ -55,10 +57,17 @@ public class Login {
         String sql ="INSERT into users values('"+id+"','"+pass+"')";
         int count = statement.executeUpdate(sql);
         if(count>0){
-            System.out.println("成功增加："+id+","+pass);
+            System.out.println("成功增加user："+id+","+pass);
+            String sql2 = "INSERT into Customer values('"+id+"','"+id+"','Wushan','Guangzhou','"+id+"')";
+            int count2 = statement.executeUpdate(sql2);
+            if(count2>0){
+                System.out.println("成功增加customer："+id);
+                return "true";
+            }
             return "true";
         }
         System.out.println("增加失败："+id+","+pass);
+
         return "false";
     }
 }
