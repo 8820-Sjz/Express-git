@@ -57,7 +57,8 @@ public class Server {
             s = login.signUp(line);
         }
         System.out.println("登录/注册的结果是："+s);
-
+        pw.println(s);
+        pw.flush();
     }
     //搜索/刷新
     public static void search(String line) throws Exception{
