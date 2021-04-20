@@ -92,8 +92,8 @@ public class DetailPane extends BorderPane {
         parcelStatus.setCellValueFactory(new PropertyValueFactory<>("parcelStatus"));
         parcelStatus.setPrefWidth(100);
 
-        TableColumn<TransportInfo, String> transportionWay = new TableColumn<>("Transportion Way");
-        transportionWay.setCellValueFactory(new PropertyValueFactory<>("transportionWay"));
+        TableColumn<TransportInfo, String> transportionWay = new TableColumn<>("Transportation");
+        transportionWay.setCellValueFactory(new PropertyValueFactory<>("transportation"));
         transportionWay.setPrefWidth(200);
 
         placeInfo = new TableView();

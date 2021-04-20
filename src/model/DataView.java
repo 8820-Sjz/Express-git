@@ -10,6 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import obj.SingleInfo;
+import sqlUtils.Search;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,9 +23,11 @@ public class DataView extends TableView {
     private Client client;
     private SingleInfo currentInfo;
     ArrayList<String> list ;
+    private Search search;
     
     public DataView() throws Exception  {
         singleInfos = new ArrayList<>();
+        search = new Search();
         TableColumn<SingleInfo,Integer> CID = new TableColumn<>("Cid");
         CID.setCellValueFactory(new PropertyValueFactory<>("Cid"));
         CID.setMinWidth(100);
@@ -62,6 +65,28 @@ public class DataView extends TableView {
                 root.getPidInfo().setText(Integer.toString(currentInfo.getPid()));
                 root.getCreatetimeInfo().setText(currentInfo.getCreatetime());
                 root.getTransportcompanyInfo().setText(currentInfo.getCompanyName());
+                try {
+                    ArrayList<String> res = new ArrayList<>();
+                    for(String info:search.corespondingData1(currentInfo.getPid())){
+                        res.add(info);
+                    }
+                    for(String info:search.corespondingData2(currentInfo.getPid())){
+                        res.add(info);
+                    }
+                    for(String info:search.corespondingData3(currentInfo.getPid())){
+                        res.add(info);
+                    }
+                    root.getDestinationInfo().setText(res.get(0));
+                    root.getrPlaceInfo().setText(res.get(0));
+                    root.getTypeInfo().setText(res.get(1));
+                    root.getRecipientInfo().setText(res.get(2));
+                    root.getrPhoneInfo().setText(res.get(3));
+                    root.getSenderInfo().setText(res.get(4));
+                    root.getsPhoneInfo().setText(res.get(5));
+                    root.getsPlaceInfo().setText(res.get(6));
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
 
                 Scene scene = new Scene(root,600,400);
                 stage.setScene(scene);

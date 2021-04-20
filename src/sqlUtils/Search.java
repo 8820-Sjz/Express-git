@@ -1,5 +1,6 @@
 package sqlUtils;
 
+import obj.TransportInfo;
 import server.DBConnection;
 import server.DBConnection;
 
@@ -25,6 +26,59 @@ public class Search {
 
         return text;
 
+    }
+
+    public ArrayList<String> corespondingData1(int pid) throws SQLException {
+        ArrayList<String> res = new ArrayList<>();
+        String sql = "SELECT destination,content FROM packages NATURAL JOIN pdetail NATURAL JOIN detail WHERE Pid = "+pid;
+        ResultSet rs = statement.executeQuery(sql);
+        while (rs.next()){
+            String destination = rs.getString("destination");
+            String content = rs.getString("content");
+            res.add(destination);
+            res.add(content);
+        }
+        return res;
+    }
+
+    public ArrayList<String> corespondingData2(int pid) throws SQLException {
+        ArrayList<String> res = new ArrayList<>();
+        String sql = "SELECT reciever_name,phone FROM packages NATURAL JOIN delivery NATURAL JOIN reciever WHERE Pid = "+pid;
+        ResultSet rs = statement.executeQuery(sql);
+        while (rs.next()){
+            String recipient = rs.getString("reciever_name");
+            String phone = rs.getString("phone");
+            res.add(recipient);
+            res.add(phone);
+        }
+        return res;
+    }
+
+    public ArrayList<String> corespondingData3(int pid) throws SQLException {
+        ArrayList<String> res = new ArrayList<>();
+        String sql = "SELECT customer_name,city,street,phone FROM packages NATURAL JOIN orders NATURAL JOIN customer WHERE Pid = "+pid;
+        ResultSet rs = statement.executeQuery(sql);
+        while (rs.next()){
+            String sender = rs.getString("customer_name");
+            String city = rs.getString("city");
+            String street = rs.getString("street");
+            String place = city+" "+ street;
+            String phone = rs.getString("phone");
+            res.add(sender);
+            res.add(phone);
+            res.add(place);
+        }
+        return res;
+    }
+
+    public ArrayList<TransportInfo> corespondingData4(int pid) throws SQLException {
+        ArrayList<TransportInfo> res = new ArrayList<>();
+        String sql = "";
+        ResultSet rs = statement.executeQuery(sql);
+        while (rs.next()){
+
+        }
+        return res;
     }
 
     public ArrayList<String> mainDataSearch(String limit)  throws Exception{
