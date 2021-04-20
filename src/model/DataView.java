@@ -1,5 +1,7 @@
 package model;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
@@ -18,6 +20,7 @@ public class DataView extends TableView {
     private TableView tableView = this;
     private ArrayList<SingleInfo> singleInfos;
     private Client client;
+    private SingleInfo currentInfo;
     ArrayList<String> list ;
     
     public DataView() throws Exception  {
@@ -56,12 +59,20 @@ public class DataView extends TableView {
             if (event.getClickCount()==2){
 //                AnchorPane root = new AnchorPane();
                 DetailPane root = new DetailPane();
+                root.getPidInfo().setText(Integer.toString(currentInfo.getPid()));
+                root.getCreatetimeInfo().setText(currentInfo.getCreatetime());
+                root.getTransportcompanyInfo().setText(currentInfo.getCompanyName());
+
                 Scene scene = new Scene(root,600,400);
                 stage.setScene(scene);
                 stage.setTitle("详细信息");
-                stage.setX(600);
-                stage.setY(400);
                 stage.show();
+            }
+        });
+        this.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<SingleInfo>() {
+            @Override
+            public void changed(ObservableValue<? extends SingleInfo> observable, SingleInfo oldValue, SingleInfo newValue) {
+                currentInfo = newValue;
             }
         });
     }
