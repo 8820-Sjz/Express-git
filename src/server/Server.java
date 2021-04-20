@@ -24,6 +24,28 @@ public class Server {
         serve();
     }
 
+
+    public static void order(String num)throws Exception{
+        int size = Integer.parseInt(num);
+        ArrayList<String> list = new ArrayList<>();
+        String line;
+        for(int i=0; i<size; i++){
+            line = is.readLine();
+            if(line==""||line==null)break;
+            list.add(line);
+        }
+        //System.out.println("new data: "+list.size());
+        for (String s:list) {
+            System.out.println(s);
+        }
+        if(list.size()==size){
+            pw.println("true");
+        }else{
+            pw.println("false");
+        }
+        pw.flush();
+    }
+
     //µÇÂ¼/×¢²á
     public static void login(String line)throws Exception{
         Login login = new Login();
@@ -35,8 +57,7 @@ public class Server {
             s = login.signUp(line);
         }
         System.out.println("µÇÂ¼/×¢²áµÄ½á¹ûÊÇ£º"+s);
-        pw.println(s);
-        pw.flush();
+
     }
     //ËÑË÷/Ë¢ÐÂ
     public static void search(String line) throws Exception{
@@ -60,6 +81,7 @@ public class Server {
         }
 
     }
+
 
     public static void serve() throws Exception {
         ServerSocket ss = new ServerSocket(11112);
@@ -85,6 +107,10 @@ public class Server {
                 login(line);
             }
 
+            //--------------ÏÂµ¥----------------
+            if(request=='4'){
+                order(line.substring(1));
+            }
 
             is.close();
             pw.close();
