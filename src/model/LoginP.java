@@ -66,8 +66,8 @@ public class LoginP extends GridPane{
 				try {
 					String s = client.login(request);
 					System.out.println("登录结果:"+s);
-					if(s.equals("true")) {
-						
+					if(s!=null && s.equals("true")) {
+						Client.cid = id;
 						newShow();
 					}
 				} catch (Exception e) {

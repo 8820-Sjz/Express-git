@@ -15,9 +15,31 @@ public class Client {
 	private Socket socket;
     private PrintWriter pw;
     private BufferedReader is;
+    public static String cid ;
 	
     public Client() {
     	
+    }
+    //ÏÂµ¥
+    public String newOrder(ArrayList<String> list) throws Exception {
+        newServe();
+
+        pw.println("4"+list.size());
+        pw.flush();
+
+        for (String string : list) {
+            pw.println(string);
+            pw.flush();
+        }
+
+        String line = is.readLine();
+
+        is.close();
+        pw.close();
+        socket.close();
+        System.out.println("result of insert: "+line);
+        return line;
+
     }
 
     public String login(String request) throws Exception {
