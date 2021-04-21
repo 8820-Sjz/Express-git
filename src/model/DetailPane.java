@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 
 public class DetailPane extends BorderPane {
+    private Search search;
     private BorderPane borderPane = this;
     private TableView placeInfo;
     private GridPane centralGP;
@@ -166,11 +167,10 @@ public class DetailPane extends BorderPane {
                 saveList.add(recipientInfo.getText());
                 saveList.add(rPhoneInfo.getText());
                 saveList.add(rPlaceInfo.getText());
-                for(String each:saveList){
-                    System.out.println(each);
-                }
+                saveData(pidInfo.getText(),saveList);
             }
         });
+
 
         restoreButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -276,24 +276,6 @@ public class DetailPane extends BorderPane {
         this.destinationInfo = destinationInfo;
     }
 
-
-
-//    public boolean changeListener(Stage stage) {
-//        sPhoneInfo.textProperty().addListener((observable, oldValue, newValue) -> {
-//            if (!oldValue.equals(newValue)) {
-//                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-//                    @Override
-//                    public void handle(WindowEvent event) {
-//                        AmendPane amendPane = new AmendPane(Alert.AlertType.CONFIRMATION);
-//                        System.out.println(oldValue + " : " + newValue);
-//                    }
-//                });
-//            }
-//        });
-//    }
-
-
-
     public Button getSaveButton() {
         return saveButton;
     }
@@ -326,5 +308,22 @@ public class DetailPane extends BorderPane {
 
     public void setInitList(ArrayList<String> initList) {
         this.initList = initList;
+    }
+
+    public void saveData(String pid,ArrayList<String> res){
+        String sql1 = "UPDATE reciever NATURAL JOIN delivery NATURAL JOIN packages " +
+                "SET reciever_name = '"+res.get(1)+"',phone = '"+res.get(2)+"' WHERE Pid = "+pid;
+        String sql2 = "UPDATE packages NATURAL JOIN orders NATURAL JOIN customer " +
+                "SET phone = '"+res.get(0)+"' WHERE Pid = "+pid;
+        String sql3 = "UPDATE packages NATURAL JOIN pdetail NATURAL JOIN detail " +
+                "SET destination = '"+res.get(3)+"' WHERE Pid = "+pid;
+        try {
+            Search search = new Search();
+            search.changeData(sql1);
+            search.changeData(sql2);
+            search.changeData(sql3);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }

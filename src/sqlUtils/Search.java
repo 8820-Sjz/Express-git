@@ -20,11 +20,15 @@ public class Search {
 
     public ArrayList<String>  mainDataSearch() throws SQLException {
         String sql = "SELECT Cid,Pid,Rid,createtime,timeliness,company_name " +
-                "FROM orders NATURAL JOIN packages NATURAL JOIN delivery NATURAL JOIN deal";
+                "FROM orders NATURAL JOIN packages NATURAL JOIN delivery NATURAL JOIN loads NATURAL JOIN vehicle NATURAL JOIN boss NATURAL JOIN company";
         ResultSet rs  = statement.executeQuery(sql);
         ArrayList<String>  text = getTest(rs);
-
         return text;
+
+    }
+
+    public void changeData(String sql) throws SQLException {
+        statement.execute(sql);
 
     }
 
