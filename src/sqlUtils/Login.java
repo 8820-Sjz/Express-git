@@ -53,7 +53,7 @@ public class Login {
             System.out.println("ÕËºÅÒÑ´æÔÚ£¬×¢²áÊ§°Ü£¡");
             return "false";
         }
-
+        //insert into users and customer
         String sql ="INSERT into users values('"+id+"','"+pass+"')";
         int count = statement.executeUpdate(sql);
         if(count>0){

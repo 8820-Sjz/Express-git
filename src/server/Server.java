@@ -1,6 +1,7 @@
 package server;
 
 import sqlUtils.Login;
+import sqlUtils.Order;
 import sqlUtils.Search;
 
 import java.io.BufferedReader;
@@ -24,7 +25,7 @@ public class Server {
         serve();
     }
 
-
+    //下单
     public static void order(String num)throws Exception{
         int size = Integer.parseInt(num);
         ArrayList<String> list = new ArrayList<>();
@@ -38,11 +39,23 @@ public class Server {
         for (String s:list) {
             System.out.println(s);
         }
-        if(list.size()==size){
-            pw.println("true");
-        }else{
+        if(list.size()!=size){
             pw.println("false");
+            System.out.println("下单失败：数据不足！");
+            return;
         }
+        Order order = new Order();
+
+        order.newPackage(list.get(0));
+        order.newReciver(list.get(1));
+        order.newDelivery();
+        order.newDetail(list.get(2));
+        order.newPDetail();
+        order.newLoads();
+        order.newOrders(list.get(3),list.get(4));
+        order.newDeal(list.get(4));
+        System.out.println("下单成功！");
+        pw.println("true");
         pw.flush();
     }
 

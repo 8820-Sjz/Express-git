@@ -11,16 +11,15 @@ import java.util.concurrent.Executors;
 
 public class Client {
     //static ExecutorService pool = Executors.newFixedThreadPool(4);
-    
-	private Socket socket;
+
+    private Socket socket;
     private PrintWriter pw;
     private BufferedReader is;
-    public static String cid ;
-	
+    public static String cid = null ;
     public Client() {
-    	
+
     }
-    //下单
+
     public String newOrder(ArrayList<String> list) throws Exception {
         newServe();
 
@@ -37,54 +36,53 @@ public class Client {
         is.close();
         pw.close();
         socket.close();
-        System.out.println("result of insert: "+line);
+        System.out.println("下单结果: "+line);
         return line;
 
     }
 
     public String login(String request) throws Exception {
-    	newServe();
-    	
-    	pw.println(request);
-    	pw.flush();
-    	
-    	String line = is.readLine();
- 	
-    	is.close();
-    	pw.close();
-    	socket.close();
-    	
-    	return line;
+        newServe();
+
+        pw.println(request);
+        pw.flush();
+
+        String line = is.readLine();
+
+        is.close();
+        pw.close();
+        socket.close();
+
+        return line;
     }
-    
+
     public ArrayList<String> search(String request) throws Exception {
-    	newServe();
-    	ArrayList<String> list = new ArrayList<>();
-        
-    	pw.println(request);
-    	pw.flush();
-    	
+        newServe();
+        ArrayList<String> list = new ArrayList<>();
+
+        pw.println(request);
+        pw.flush();
+
         String line = is.readLine();
         int size = Integer.parseInt(line);
         for(int i = 0; i<size; i++) {
-        	line = is.readLine();
-        	System.out.println(line);
-        	list.add(line);
-        }System.out.println("共读取数据："+size+"条");   
+            line = is.readLine();
+            System.out.println(line);
+            list.add(line);
+        }System.out.println("共读取数据："+size+"条");
         socket.close();
-		return list;
+        return list;
     }
-    
+
     public void newServe() throws Exception {
-    	//long start = System.currentTimeMillis();
-    	
+        //long start = System.currentTimeMillis();
+
         socket = new Socket("127.0.0.1",11112);
         pw = new PrintWriter(socket.getOutputStream());
         is = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        
-        System.out.println("-----------I have a request--------------");                     	             
+
+        System.out.println("-----------I have a request--------------");
         //System.out.println("Consumer end, time:" + (System.currentTimeMillis() - start) / 1000 + "s");
     }
-    
 
 }
