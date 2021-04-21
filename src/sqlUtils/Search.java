@@ -20,7 +20,7 @@ public class Search {
 
     public ArrayList<String>  mainDataSearch() throws SQLException {
         String sql = "SELECT Cid,Pid,Rid,createtime,timeliness,company_name " +
-                "FROM orders NATURAL JOIN packages NATURAL JOIN delivery NATURAL JOIN loads NATURAL JOIN vehicle NATURAL JOIN boss NATURAL JOIN company";
+                "FROM orders NATURAL JOIN packages NATURAL JOIN delivery NATURAL JOIN loads NATURAL JOIN vehicle NATURAL JOIN boss ";
         ResultSet rs  = statement.executeQuery(sql);
         ArrayList<String>  text = getTest(rs);
         return text;
@@ -95,7 +95,7 @@ public class Search {
         String keyWord = limit.substring(0,limit.lastIndexOf("=")+1);
         String obj =limit.substring(limit.lastIndexOf("=")+1,limit.length());
 
-        String sql = "SELECT Cid,Pid,Rid,createtime,timeliness,company_name FROM orders NATURAL JOIN packages NATURAL JOIN delivery NATURAL JOIN deal where "+keyWord+"'"+obj+"'";
+        String sql = "SELECT Cid,Pid,Rid,createtime,timeliness,company_name FROM orders NATURAL JOIN packages NATURAL JOIN delivery NATURAL JOIN loads NATURAL JOIN  boss where "+keyWord+"'"+obj+"'";
         ResultSet rs = null;
         rs  = statement.executeQuery(sql);
         ArrayList<String>  text = getTest(rs);
