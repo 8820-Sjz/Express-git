@@ -27,11 +27,9 @@ public class DataView extends TableView {
     private DetailPane root;
     private SingleInfo currentInfo;
     ArrayList<String> list;
-    private Search search;
 
     public DataView() throws Exception {
         singleInfos = new ArrayList<>();
-        search = new Search();
         TableColumn<SingleInfo, Integer> CID = new TableColumn<>("Cid");
         CID.setCellValueFactory(new PropertyValueFactory<>("Cid"));
         CID.setMinWidth(100);
@@ -73,16 +71,16 @@ public class DataView extends TableView {
                 try {
                     ArrayList<String> res = new ArrayList<>();
                     ArrayList<TransportInfo> outcome = new ArrayList<>();
-                    for (String info : search.corespondingData1(currentInfo.getPid())) {
+                    for (String info : client.corespondingData(currentInfo.getPid(),"1")) {
                         res.add(info);
                     }
-                    for (String info : search.corespondingData2(currentInfo.getPid())) {
+                    for (String info : client.corespondingData(currentInfo.getPid(),"2")) {
                         res.add(info);
                     }
-                    for (String info : search.corespondingData3(currentInfo.getPid())) {
+                    for (String info : client.corespondingData(currentInfo.getPid(),"3")) {
                         res.add(info);
                     }
-                    root.getPlaceInfo().getItems().add(search.corespondingData4(currentInfo.getPid()));
+                    root.getPlaceInfo().getItems().add(client.corespondingData4(currentInfo.getPid()));
                     root.getDestinationInfo().setText(res.get(0));
                     root.getrPlaceInfo().setText(res.get(0));
                     root.getTypeInfo().setText(res.get(1));
@@ -95,7 +93,7 @@ public class DataView extends TableView {
                     initList.add(res.get(2));
                     initList.add(res.get(3));
                     initList.add(res.get(0));
-                } catch (SQLException throwables) {
+                } catch (Exception throwables) {
                     throwables.printStackTrace();
                 }
                 root.setInitList(initList);

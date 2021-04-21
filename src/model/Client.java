@@ -1,5 +1,7 @@
 package model;
 
+import obj.TransportInfo;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,6 +21,67 @@ public class Client {
     public Client() {
 
     }
+
+    public String changeData(String sql) throws Exception {
+        newServe();
+
+        pw.println("6"+sql);
+        pw.flush();
+
+        String line = is.readLine();
+        is.close();
+        pw.close();
+        socket.close();
+        System.out.println("保存结果: "+line);
+        return line;
+    }
+
+    public TransportInfo corespondingData4(int pid) throws Exception{
+        ArrayList<String> list = new ArrayList<>();
+        list = corespondingData(pid,"4");
+
+        String arrivalTime = "";
+        String previousPos = "";
+        String currentPos = "";
+        String transportation = "";
+        String parcelStatus = "";
+        TransportInfo info = null;
+
+        //目前为止的数据库只能查询出一条
+        for(int i=0; i<list.size(); i++) {
+            String[] s = list.get(i).split(",");
+            if(s.length!=5) {System.out.println("详细信息4获取出错!");return null;}
+            arrivalTime = s[0];
+            previousPos = s[1];
+            currentPos = s[2];
+            transportation = s[3];
+            parcelStatus = s[4];
+            info = new TransportInfo(arrivalTime,previousPos,currentPos,transportation,parcelStatus);
+        }
+        return info;
+    }
+
+    public ArrayList<String> corespondingData(int pid,String kind) throws Exception{
+        newServe();
+        ArrayList<String> list = new ArrayList<>();
+
+        String request = "5"+kind+pid;
+        pw.println(request);
+        pw.flush();
+
+        String line = is.readLine();
+        int size = Integer.parseInt(line);
+        for(int i = 0; i<size; i++) {
+            line = is.readLine();
+            System.out.println(line);
+            list.add(line);
+        }System.out.println("共读取详细信息"+kind+"："+size+"条");
+        is.close();
+        pw.close();
+        socket.close();
+        return list;
+    }
+
 
     public String newOrder(ArrayList<String> list) throws Exception {
         newServe();

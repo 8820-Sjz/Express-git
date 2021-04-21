@@ -27,12 +27,18 @@ public class Search {
 
     }
 
-    public void changeData(String sql) throws SQLException {
-        statement.execute(sql);
+    public String changeData(String sql) throws SQLException {
+        int count = statement.executeUpdate(sql);
+        if(count>0){
+            System.out.println("修改成功！");
+            return "true";
+        }
+        System.out.println("修改失败！");
+        return "false";
 
     }
 
-    public ArrayList<String> corespondingData1(int pid) throws SQLException {
+    public ArrayList<String> corespondingData1(String pid) throws SQLException {
         ArrayList<String> res = new ArrayList<>();
         String sql = "SELECT destination,content FROM packages NATURAL JOIN pdetail NATURAL JOIN detail WHERE Pid = "+pid;
         ResultSet rs = statement.executeQuery(sql);
@@ -45,7 +51,7 @@ public class Search {
         return res;
     }
 
-    public ArrayList<String> corespondingData2(int pid) throws SQLException {
+    public ArrayList<String> corespondingData2(String pid) throws SQLException {
         ArrayList<String> res = new ArrayList<>();
         String sql = "SELECT reciever_name,phone FROM packages NATURAL JOIN delivery NATURAL JOIN reciever WHERE Pid = "+pid;
         ResultSet rs = statement.executeQuery(sql);
@@ -58,7 +64,7 @@ public class Search {
         return res;
     }
 
-    public ArrayList<String> corespondingData3(int pid) throws SQLException {
+    public ArrayList<String> corespondingData3(String pid) throws SQLException {
         ArrayList<String> res = new ArrayList<>();
         String sql = "SELECT customer_name,city,street,phone FROM packages NATURAL JOIN orders NATURAL JOIN customer WHERE Pid = "+pid;
         ResultSet rs = statement.executeQuery(sql);
@@ -75,20 +81,22 @@ public class Search {
         return res;
     }
 
-    public TransportInfo corespondingData4(int pid) throws SQLException {
+    public ArrayList<String> corespondingData4(String pid) throws SQLException {
+        ArrayList<String> res = new ArrayList<>();
         String sql = "SELECT nowwhere,yesterdaywhere,vkind,states,gettime FROM detail NATURAL JOIN pdetail " +
                 "   NATURAL JOIN packages NATURAL JOIN delivery NATURAL JOIN loads NATURAL JOIN vehicle WHERE pid = "+pid;
         ResultSet rs = statement.executeQuery(sql);
-        TransportInfo info = null;
+        String s = null;
         while (rs.next()){
             String arrivalTime = rs.getString("gettime");
             String previousPos = rs.getString("yesterdaywhere");
             String currentPos = rs.getString("nowwhere");
             String transportation = rs.getString("vkind");
             String parcelStatus = rs.getString("states");
-            info = new TransportInfo(arrivalTime,previousPos,currentPos,transportation,parcelStatus);
+            s = arrivalTime+","+previousPos+","+currentPos+","+transportation+","+parcelStatus;
+            res.add(s);
         }
-        return info;
+        return res;
     }
 
     public ArrayList<String> mainDataSearch(String limit)  throws Exception{

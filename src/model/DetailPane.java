@@ -318,11 +318,11 @@ public class DetailPane extends BorderPane {
         String sql3 = "UPDATE packages NATURAL JOIN pdetail NATURAL JOIN detail " +
                 "SET destination = '"+res.get(3)+"' WHERE Pid = "+pid;
         try {
-            Search search = new Search();
-            search.changeData(sql1);
-            search.changeData(sql2);
-            search.changeData(sql3);
-        } catch (SQLException throwables) {
+            Client client = new Client();
+            client.changeData(sql1);
+            client.changeData(sql2);
+            client.changeData(sql3);
+        } catch (Exception throwables) {
             throwables.printStackTrace();
         }
     }

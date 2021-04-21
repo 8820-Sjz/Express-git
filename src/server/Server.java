@@ -95,6 +95,43 @@ public class Server {
         }
 
     }
+    //详细界面信息获取
+    public static void getDetail(String line) throws Exception{
+        ArrayList<String> list = new ArrayList<>();
+        list.clear();
+        Search search = new Search();
+
+        char request = line.charAt(0);
+        String pid = line.substring(1);
+        if(request== '1'){
+            list = search.corespondingData1(pid);
+        }else if(request== '2'){
+            list = search.corespondingData2(pid);
+        }else if(request== '3'){
+            list = search.corespondingData3(pid);
+        }else if(request== '4'){
+            list = search.corespondingData4(pid);
+        }
+        System.out.println("共查询到数据: "+list.size()+"条");
+
+        pw.println(list.size());
+        pw.flush();
+
+        for (String text: list) {
+            pw.println(text);
+            pw.flush();
+        }
+
+    }
+    //详细信息修改
+    public static void saveDetail(String line) throws Exception{
+        Search search = new Search();
+        String result = search.changeData(line);
+
+        pw.println(result);
+        pw.flush();
+    }
+
 
 
     public static void serve() throws Exception {
@@ -124,6 +161,16 @@ public class Server {
             //--------------下单----------------
             if(request=='4'){
                 order(line.substring(1));
+            }
+
+            //-----------获取详细信息-------------
+            if(request=='5'){
+                getDetail(line.substring(1));
+            }
+
+            //-----------详细信息修改------------
+            if(request=='6'){
+                saveDetail(line.substring(1));
             }
 
             is.close();
