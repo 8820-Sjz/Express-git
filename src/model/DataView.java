@@ -1,7 +1,10 @@
 package model;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -21,6 +24,7 @@ public class DataView extends TableView {
     private TableView tableView = this;
     private ArrayList<SingleInfo> singleInfos;
     private Client client;
+    private DetailPane root;
     private SingleInfo currentInfo;
     ArrayList<String> list;
     private Search search;
@@ -60,8 +64,9 @@ public class DataView extends TableView {
         this.setOnMousePressed(event -> {
             stage.close();
             if (event.getClickCount() == 2) {
+                ArrayList<String> initList = new ArrayList<>();
 //                AnchorPane root = new AnchorPane();
-                DetailPane root = new DetailPane();
+                root = new DetailPane();
                 root.getPidInfo().setText(Integer.toString(currentInfo.getPid()));
                 root.getCreatetimeInfo().setText(currentInfo.getCreatetime());
                 root.getTransportcompanyInfo().setText(currentInfo.getCompanyName());
@@ -86,11 +91,14 @@ public class DataView extends TableView {
                     root.getSenderInfo().setText(res.get(4));
                     root.getsPhoneInfo().setText(res.get(5));
                     root.getsPlaceInfo().setText(res.get(6));
-                    root.changeListener(stage);
-
+                    initList.add(res.get(5));
+                    initList.add(res.get(2));
+                    initList.add(res.get(3));
+                    initList.add(res.get(0));
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
+                root.setInitList(initList);
                 Scene scene = new Scene(root, 600, 400);
                 stage.setScene(scene);
                 stage.setTitle("详细信息");
@@ -103,6 +111,16 @@ public class DataView extends TableView {
                 currentInfo = newValue;
             }
         });
+    }
+
+
+    public ArrayList<String> function(DetailPane root) {
+        ArrayList<String> res = new ArrayList<>();
+        res.add(root.getsPhoneInfo().getText());
+        res.add(root.getRecipientInfo().getText());
+        res.add(root.getrPhoneInfo().getText());
+        res.add(root.getrPlaceInfo().getText());
+        return res;
     }
 
     public ArrayList<SingleInfo> collectDatas(String text) throws Exception {

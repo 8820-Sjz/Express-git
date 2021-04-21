@@ -21,13 +21,15 @@ import sqlUtils.Search;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public class DetailPane extends BorderPane {
-    public static boolean isChange;
     private BorderPane borderPane = this;
     private TableView placeInfo;
     private GridPane centralGP;
+    private ArrayList<String> saveList;
+    private ArrayList<String> initList;
 
     private Label sender;
     private Label senderInfo;
@@ -52,6 +54,9 @@ public class DetailPane extends BorderPane {
     private Label transportcompanyInfo;
     private Label destination;
     private Label destinationInfo;
+    private Button saveButton;
+    private Button restoreButton;
+
 
     public DetailPane() {
         init();
@@ -71,6 +76,9 @@ public class DetailPane extends BorderPane {
 
         centralGP.add(pid, 0, 3);
         centralGP.add(pidInfo, 1, 3);
+        centralGP.add(restoreButton,3,3);
+        centralGP.add(saveButton,4,3);
+
         centralGP.add(destination, 0, 4);
         centralGP.add(destinationInfo, 1, 4);
         centralGP.add(createtime, 2, 4);
@@ -79,11 +87,10 @@ public class DetailPane extends BorderPane {
         centralGP.add(typeInfo, 1, 5);
         centralGP.add(transportcompany, 2, 5);
         centralGP.add(transportcompanyInfo, 3, 5);
-
     }
 
     private void init() {
-        isChange = false;
+        saveList = new ArrayList<>();
         TableColumn<TransportInfo, String> currentPos = new TableColumn<>("Current Place");
         currentPos.setCellValueFactory(new PropertyValueFactory<>("currentPos"));
         currentPos.setPrefWidth(100);
@@ -104,6 +111,8 @@ public class DetailPane extends BorderPane {
         transportionWay.setCellValueFactory(new PropertyValueFactory<>("transportation"));
         transportionWay.setPrefWidth(200);
 
+        saveButton = new Button("save");
+        restoreButton = new Button("restore");
         placeInfo = new TableView();
         placeInfo.getColumns().addAll(currentPos, previousPos, arrivalTime, parcelStatus, transportionWay);
         centralGP = new GridPane();
@@ -150,40 +159,25 @@ public class DetailPane extends BorderPane {
 
         rPlaceInfo = new TextField();
 
-//        String  sPhoneInfoInit = sPhoneInfo.getText();
-//        sPhoneInfo.textProperty().addListener(new ChangeListener<String>() {
-//            @Override
-//            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-//                oldValue = sPhoneInfoInit;
-//                System.out.println(newValue+" : "+oldValue);
-//                if (!newValue.equals(oldValue)) {
-//                    sPhoneInfo.setText(newValue);
-//                    isChange = true;
-//                }
-//            }
-//        });
-//        rPhoneInfo.textProperty().addListener(new ChangeListener<String>() {
-//            @Override
-//            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-//                rPhoneInfo.setText(newValue);
-//                isChange = true;
-//            }
-//        });
-//        rPlaceInfo.textProperty().addListener(new ChangeListener<String>() {
-//            @Override
-//            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-//                rPlaceInfo.setText(newValue);
-//                isChange = true;
-//            }
-//        });
-//        recipientInfo.textProperty().addListener(new ChangeListener<String>() {
-//            @Override
-//            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-//                recipientInfo.setText(newValue);
-//                isChange = true;
-//            }
-//        });
+        saveButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                saveList.add(sPhoneInfo.getText());
+                saveList.add(recipientInfo.getText());
+                saveList.add(rPhoneInfo.getText());
+                saveList.add(rPlaceInfo.getText());
+                for(String each:saveList){
+                    System.out.println(each);
+                }
+            }
+        });
 
+        restoreButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                restore(initList);
+            }
+        });
     }
 
     public TableView getPlaceInfo() {
@@ -282,18 +276,55 @@ public class DetailPane extends BorderPane {
         this.destinationInfo = destinationInfo;
     }
 
-    public void changeListener(Stage stage){
-        sPhoneInfo.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!oldValue.equals(newValue)){
-                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                    @Override
-                    public void handle(WindowEvent event) {
-                        AmendPane amendPane = new AmendPane(Alert.AlertType.CONFIRMATION);
-                        System.out.println(oldValue + " : " + newValue);
-                    }
-                });
-            }
-        });
+
+
+//    public boolean changeListener(Stage stage) {
+//        sPhoneInfo.textProperty().addListener((observable, oldValue, newValue) -> {
+//            if (!oldValue.equals(newValue)) {
+//                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+//                    @Override
+//                    public void handle(WindowEvent event) {
+//                        AmendPane amendPane = new AmendPane(Alert.AlertType.CONFIRMATION);
+//                        System.out.println(oldValue + " : " + newValue);
+//                    }
+//                });
+//            }
+//        });
+//    }
+
+
+
+    public Button getSaveButton() {
+        return saveButton;
     }
 
+    public void setSaveButton(Button saveButton) {
+        this.saveButton = saveButton;
+    }
+
+    public Button getRestoreButton() {
+        return restoreButton;
+    }
+
+    public void setRestoreButton(Button restoreButton) {
+        this.restoreButton = restoreButton;
+    }
+
+    public void restore(ArrayList<String>initList){
+        for(String each:initList){
+            System.out.println(each);
+        }
+        sPhoneInfo.setText(initList.get(0));
+        recipientInfo.setText(initList.get(1));
+        rPhoneInfo.setText(initList.get(2));
+        rPlaceInfo.setText(initList.get(3));
+    }
+
+    public ArrayList<String> getInitList() {
+        return initList;
+    }
+
+    public void setInitList(ArrayList<String> initList) {
+        this.initList = initList;
+    }
 }
