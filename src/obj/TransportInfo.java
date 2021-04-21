@@ -4,14 +4,14 @@ public class TransportInfo {
     private String arrivalTime;
     private String previousPos;
     private String currentPos;
-    private String transportionWay;
+    private String transportation;
     private String parcelStatus;
 
-    public TransportInfo(String arrivalTime, String previousPos, String currentPos, String transportionWay, String parcelStatus) {
+    public TransportInfo(String arrivalTime, String previousPos, String currentPos, String transportation, String parcelStatus) {
         this.arrivalTime = arrivalTime;
         this.previousPos = previousPos;
         this.currentPos = currentPos;
-        this.transportionWay = transportionWay;
+        this.transportation = transportation;
         this.parcelStatus = parcelStatus;
     }
 
@@ -39,12 +39,12 @@ public class TransportInfo {
         this.currentPos = currentPos;
     }
 
-    public String getTransportionWay() {
-        return transportionWay;
+    public String getTransportation() {
+        return transportation;
     }
 
-    public void setTransportionWay(String transportionWay) {
-        this.transportionWay = transportionWay;
+    public void setTransportation(String transportation) {
+        this.transportation = transportation;
     }
 
     public String getParcelStatus() {
@@ -61,7 +61,7 @@ public class TransportInfo {
                 "arrivalTime='" + arrivalTime + '\'' +
                 ", previousPos='" + previousPos + '\'' +
                 ", currentPos='" + currentPos + '\'' +
-                ", transportionWays='" + transportionWay + '\'' +
+                ", transportionWays='" + transportation + '\'' +
                 ", parcelStatus='" + parcelStatus + '\'' +
                 '}';
     }

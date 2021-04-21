@@ -1,6 +1,10 @@
 package model;
 
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -9,6 +13,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import obj.SingleInfo;
 import obj.TransportInfo;
 import sqlUtils.Search;
 
@@ -17,6 +24,7 @@ import java.sql.SQLException;
 
 
 public class DetailPane extends BorderPane {
+    public static boolean isChange;
     private BorderPane borderPane = this;
     private TableView placeInfo;
     private GridPane centralGP;
@@ -46,7 +54,6 @@ public class DetailPane extends BorderPane {
     private Label destinationInfo;
 
     public DetailPane() {
-
         init();
         centralGP.add(sender, 0, 0);
         centralGP.add(senderInfo, 1, 0);
@@ -76,6 +83,7 @@ public class DetailPane extends BorderPane {
     }
 
     private void init() {
+        isChange = false;
         TableColumn<TransportInfo, String> currentPos = new TableColumn<>("Current Place");
         currentPos.setCellValueFactory(new PropertyValueFactory<>("currentPos"));
         currentPos.setPrefWidth(100);
@@ -141,6 +149,41 @@ public class DetailPane extends BorderPane {
         rPlace = new Label("place:");
 
         rPlaceInfo = new TextField();
+
+//        String  sPhoneInfoInit = sPhoneInfo.getText();
+//        sPhoneInfo.textProperty().addListener(new ChangeListener<String>() {
+//            @Override
+//            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+//                oldValue = sPhoneInfoInit;
+//                System.out.println(newValue+" : "+oldValue);
+//                if (!newValue.equals(oldValue)) {
+//                    sPhoneInfo.setText(newValue);
+//                    isChange = true;
+//                }
+//            }
+//        });
+//        rPhoneInfo.textProperty().addListener(new ChangeListener<String>() {
+//            @Override
+//            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+//                rPhoneInfo.setText(newValue);
+//                isChange = true;
+//            }
+//        });
+//        rPlaceInfo.textProperty().addListener(new ChangeListener<String>() {
+//            @Override
+//            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+//                rPlaceInfo.setText(newValue);
+//                isChange = true;
+//            }
+//        });
+//        recipientInfo.textProperty().addListener(new ChangeListener<String>() {
+//            @Override
+//            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+//                recipientInfo.setText(newValue);
+//                isChange = true;
+//            }
+//        });
+
     }
 
     public TableView getPlaceInfo() {
@@ -239,5 +282,18 @@ public class DetailPane extends BorderPane {
         this.destinationInfo = destinationInfo;
     }
 
+    public void changeListener(Stage stage){
+        sPhoneInfo.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!oldValue.equals(newValue)){
+                stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent event) {
+                        AmendPane amendPane = new AmendPane(Alert.AlertType.CONFIRMATION);
+                        System.out.println(oldValue + " : " + newValue);
+                    }
+                });
+            }
+        });
+    }
 
 }

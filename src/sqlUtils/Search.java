@@ -71,14 +71,20 @@ public class Search {
         return res;
     }
 
-    public ArrayList<TransportInfo> corespondingData4(int pid) throws SQLException {
-        ArrayList<TransportInfo> res = new ArrayList<>();
-        String sql = "";
+    public TransportInfo corespondingData4(int pid) throws SQLException {
+        String sql = "SELECT nowwhere,yesterdaywhere,vkind,states,gettime FROM detail NATURAL JOIN pdetail " +
+                "   NATURAL JOIN packages NATURAL JOIN delivery NATURAL JOIN loads NATURAL JOIN vehicle WHERE pid = "+pid;
         ResultSet rs = statement.executeQuery(sql);
+        TransportInfo info = null;
         while (rs.next()){
-
+            String arrivalTime = rs.getString("gettime");
+            String previousPos = rs.getString("yesterdaywhere");
+            String currentPos = rs.getString("nowwhere");
+            String transportation = rs.getString("vkind");
+            String parcelStatus = rs.getString("states");
+            info = new TransportInfo(arrivalTime,previousPos,currentPos,transportation,parcelStatus);
         }
-        return res;
+        return info;
     }
 
     public ArrayList<String> mainDataSearch(String limit)  throws Exception{
