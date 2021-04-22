@@ -17,15 +17,11 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import obj.SingleInfo;
 import obj.TransportInfo;
-import sqlUtils.Search;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 
 public class DetailPane extends BorderPane {
-    private Search search;
     private BorderPane borderPane = this;
     private TableView placeInfo;
     private GridPane centralGP;
@@ -94,11 +90,11 @@ public class DetailPane extends BorderPane {
         saveList = new ArrayList<>();
         TableColumn<TransportInfo, String> currentPos = new TableColumn<>("Current Place");
         currentPos.setCellValueFactory(new PropertyValueFactory<>("currentPos"));
-        currentPos.setPrefWidth(100);
+        currentPos.setPrefWidth(130);
 
         TableColumn<TransportInfo, String> previousPos = new TableColumn<>("Previous Place");
         previousPos.setCellValueFactory(new PropertyValueFactory<>("previousPos"));
-        previousPos.setPrefWidth(100);
+        previousPos.setPrefWidth(130);
 
         TableColumn<TransportInfo, String> arrivalTime = new TableColumn<>("Arrival Time");
         arrivalTime.setCellValueFactory(new PropertyValueFactory<>("arrivalTime"));
@@ -106,7 +102,7 @@ public class DetailPane extends BorderPane {
 
         TableColumn<TransportInfo, String> parcelStatus = new TableColumn<>("Parcel Status");
         parcelStatus.setCellValueFactory(new PropertyValueFactory<>("parcelStatus"));
-        parcelStatus.setPrefWidth(100);
+        parcelStatus.setPrefWidth(130);
 
         TableColumn<TransportInfo, String> transportionWay = new TableColumn<>("Transportation");
         transportionWay.setCellValueFactory(new PropertyValueFactory<>("transportation"));
@@ -129,7 +125,7 @@ public class DetailPane extends BorderPane {
         destinationInfo = new Label();
         pid = new Label("pid:");
         createtime = new Label("createtime:");
-        type = new Label("type:");
+        type = new Label("goods:");
         transportcompany = new Label("transportcompany:");
         pidInfo = new Label();
         createtimeInfo = new Label();

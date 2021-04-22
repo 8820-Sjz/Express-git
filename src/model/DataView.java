@@ -53,7 +53,7 @@ public class DataView extends TableView {
 
         TableColumn<SingleInfo, String> COMPANY = new TableColumn<>("company_name");
         COMPANY.setCellValueFactory(new PropertyValueFactory<>("companyName"));
-        COMPANY.setMinWidth(100);
+        COMPANY.setMinWidth(150);
 
         this.getColumns().addAll(CID, PID, RID, CREATETIME, TIMELINESS, COMPANY);
 
@@ -98,9 +98,10 @@ public class DataView extends TableView {
                     throwables.printStackTrace();
                 }
                 root.setInitList(initList);
-                Scene scene = new Scene(root, 600, 400);
+                Scene scene = new Scene(root, 750, 400);
                 stage.setScene(scene);
                 stage.setTitle("详细信息");
+                stage.setResizable(false);
                 stage.show();
             }
         });
