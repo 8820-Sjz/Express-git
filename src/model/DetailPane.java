@@ -319,9 +319,19 @@ public class DetailPane extends BorderPane {
                 "SET destination = '"+res.get(3)+"' WHERE Pid = "+pid;
         try {
             Client client = new Client();
-            client.changeData(sql1);
-            client.changeData(sql2);
-            client.changeData(sql3);
+            String line = "true";
+            line = client.changeData(sql1);
+            line = client.changeData(sql2);
+            line = client.changeData(sql3);
+            Alert alert;
+            if(line.equals("true")){
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("success to save !");
+            }else{
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("fail to save !");
+            }
+            alert.show();
         } catch (Exception throwables) {
             throwables.printStackTrace();
         }

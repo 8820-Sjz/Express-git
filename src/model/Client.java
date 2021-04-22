@@ -1,5 +1,6 @@
 package model;
 
+import javafx.scene.control.Alert;
 import obj.TransportInfo;
 
 import java.io.BufferedReader;
@@ -33,6 +34,7 @@ public class Client {
         pw.close();
         socket.close();
         System.out.println("保存结果: "+line);
+
         return line;
     }
 
@@ -100,6 +102,17 @@ public class Client {
         pw.close();
         socket.close();
         System.out.println("下单结果: "+line);
+
+        Alert alert;
+        if(line.equals("true")){
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("success to order !");
+        }else{
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("fail to order!");
+        }
+        alert.show();
+
         return line;
 
     }

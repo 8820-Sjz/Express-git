@@ -9,12 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import model.Client;
 
@@ -165,7 +160,12 @@ public class OrderP extends GridPane {
 							e.printStackTrace();
 						}
 					}
-				}
+				}else{
+				    Alert alert;
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("error input !");
+                    alert.show();
+                }
 			}
 		});
 
@@ -194,12 +194,20 @@ public class OrderP extends GridPane {
 
 	//判断字符串是否为纯数字
 	public boolean isDigit(String s) {
-		if(s.length()<=0)return false;
+	    boolean ifTrue = true;
+		if(s.length()<=0)ifTrue = false;
 		for(int i=0; i<s.length(); i++) {
 			if(!Character.isDigit(s.charAt(i)) && s.charAt(i)!='.') {
-				return false;
+				ifTrue = false;
+				break;
 			}
 		}
+		if(!ifTrue){
+            Alert alert;
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("error input !");
+            alert.show();
+        }
 		return true;
 
 	}
@@ -229,6 +237,9 @@ public class OrderP extends GridPane {
 			if(deadline==0)money+=20;
 			else if(deadline==1)money+=4;
 		}
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setContentText("express charges : "+money);
+		alert.show();
 	}
 
 	//获取当前时间
