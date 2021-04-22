@@ -23,6 +23,7 @@ public class Main extends Application {
             primaryStage.setTitle("express");
 //            primaryStage.setMinWidth(980);
 //            primaryStage.setMinHeight(800);
+            primaryStage.setResizable(false);
             primaryStage.show();
 
         } catch(Exception e) {

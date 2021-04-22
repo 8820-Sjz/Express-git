@@ -7,17 +7,22 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class LoginP extends GridPane{
-	
-	private GridPane gr = this;
+public class LoginP extends BorderPane{
+
+	private GridPane gr = new GridPane();
 	private Label name;
 	private TextField tName;
 	private Label password;
@@ -25,9 +30,12 @@ public class LoginP extends GridPane{
 	private Button btnLogin;
 	private Button btnSign;
 	private Client client = new Client();
-	
+
 	private Stage stage = new Stage();
-	
+
+	private Label log;
+	private HBox top;
+
 	public LoginP() {
 		init();
 		init2();
@@ -45,18 +53,27 @@ public class LoginP extends GridPane{
 		GridPane.setMargin(btnLogin, new Insets(30, 0, 0, 150));//top，right，bottom，left
 		GridPane.setMargin(btnSign, new Insets(30, 0, 0, 50));//top，right，bottom，left
 		gr.setAlignment(Pos.CENTER);
+
+		top.getChildren().add(log);
+		top.setAlignment(Pos.CENTER);
+		this.setCenter(gr);
+		this.setTop(top);
+		BorderPane.setMargin(top, new Insets(50, 0, 0, 0));
 	}
-	
+
 	public void init() {
 		name= new Label("\t\tID:");
 		password = new Label("PASSWORD:");
+		log = new Label("登录");
+		log.setFont(new Font(40));
+		top = new HBox();
 		tName = new TextField();
 		pp = new PasswordField();
-		
+
 		//登录按钮
 		btnLogin = new Button("login");
 		btnLogin.setOnAction(new EventHandler<ActionEvent>() {
-			
+
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
@@ -69,12 +86,16 @@ public class LoginP extends GridPane{
 					if(s!=null && s.equals("true")) {
 						Client.cid = id;
 						newShow();
+					}else {
+						Alert alert = new Alert(AlertType.WARNING);
+						alert.setContentText("账号/密码错误!");
+						alert.show();
 					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		    	
+
 			}
 		});
 		//注册按钮
@@ -90,6 +111,16 @@ public class LoginP extends GridPane{
 				try {
 					String s = client.login(request);
 					System.out.println("注册结果:"+s);
+
+					if(s.equals("true")) {
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setContentText("注册成功!");
+						alert.show();
+					}else {
+						Alert alert = new Alert(AlertType.WARNING);
+						alert.setContentText("账号已存在!");
+						alert.show();
+					}
 					//if(s.equals("true")) {newShow();}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -98,10 +129,10 @@ public class LoginP extends GridPane{
 			}
 		});
 
-		
+
 	}
-	
-	
+
+
 	public void newShow() throws Exception {
 		SplitPane root = new MainView();
 		Scene scene = new Scene(root,980,800);
@@ -112,5 +143,5 @@ public class LoginP extends GridPane{
 		stage.setResizable(false);
 		stage.show();
 	}
-	
+
 }
