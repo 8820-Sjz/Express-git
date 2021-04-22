@@ -104,10 +104,12 @@ public class Client {
 
     }
 
-    public String login(String request) throws Exception {
+    public String login(String request,boolean isRoot) throws Exception {
         newServe();
 
-        pw.println(request);
+        int r = 0;
+        if(isRoot==true)r=1;
+        pw.println(request+r);
         pw.flush();
 
         String line = is.readLine();

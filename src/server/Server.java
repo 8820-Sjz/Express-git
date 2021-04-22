@@ -63,14 +63,16 @@ public class Server {
     public static void login(String line)throws Exception{
         Login login = new Login();
         char request = line.charAt(0);
-        String s;
+        String result;
+        char r = line.charAt(line.length()-1);
+        String line2 = line.substring(0,line.length()-1);
         if(request=='2'){//登录
-            s = login.signIn(line);
+            result = login.signIn(line2,r);
         }else {//注册
-            s = login.signUp(line);
+            result = login.signUp(line2);
         }
-        System.out.println("登录/注册的结果是："+s);
-        pw.println(s);
+        System.out.println("the result of login/sign is: "+result);
+        pw.println(result);
         pw.flush();
     }
     //搜索/刷新
@@ -144,7 +146,7 @@ public class Server {
 
             String line = is.readLine();
             //if(line == null) break;
-            System.out.println("收到请求："+line);
+            System.out.println("get request: "+line);
 
             char request = line.charAt(0);
 

@@ -6,6 +6,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -125,8 +126,27 @@ public class DataView extends TableView {
         singleInfos.clear();
         try {
             client = new Client();
-            if (text.equals("")) list = client.search("0");
-            else list = client.search("1" + text);
+            if (text.equals("")) {
+                if(LoginP.isRoot==true)
+                    list = client.search("0");
+                else
+                    list = client.search("1"+"cid = "+Client.cid);
+            }
+            else {
+                if(LoginP.isRoot==true)
+                    list = client.search("1" + text);
+                else {
+                    if(text.indexOf("cid")>=0||text.indexOf("Cid")>=0||text.indexOf("cId")>=0||text.indexOf("ciD")>=0
+                            ||text.indexOf("CId")>=0||text.indexOf("CiD")>=0||text.indexOf("cID")>=0||text.indexOf("CID")>=0) {
+                        Alert alert = new Alert(AlertType.ERROR);
+                        alert.setContentText("no root no search with cid !");
+                        alert.show();
+                    }else {
+                        list = client.search("1" + text);
+                    }
+                }
+            }
+
             if (list.size() == 0) {
                 tableView.setPlaceholder(new Label("No Search"));
                 return singleInfos;

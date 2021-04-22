@@ -21,20 +21,23 @@ public class Login {
     }
 
     //µ«¬º
-    public String signIn(String text)throws SQLException{
+    public String signIn(String text,char r)throws SQLException{
         String[] s = text.substring(1).split(",");
         if(s.length!=2){return "false";}
         String id = s[0];
         String pass = s[1];
+        System.out.println("ROOT: "+r);
+        String t = "users";
+        if(r=='1')t = "administrator";
         String sql ="SELECT *" +
-                    "FROM users "+
+                    "FROM "+t+" "+
                     "where id='"+id+"' and password='"+pass+"'";
         ResultSet rs = statement.executeQuery(sql);
         if(rs.next()){
-            System.out.println("’À∫≈¥Ê‘⁄£°");
+            System.out.println("user exist£°");
             return "true";
         }
-        System.out.println("”√ªßªÚ√‹¬Î¥ÌŒÛ£°");
+        System.out.println("user/pass error£°");
         return "false";
     }
 

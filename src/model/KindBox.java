@@ -54,7 +54,8 @@ public class KindBox extends VBox {
             }
         });
 
-        kb.getChildren().addAll(foodBut,colthesBut,btnSend);
+        if(LoginP.isRoot==true) kb.getChildren().addAll(foodBut,colthesBut);
+        else kb.getChildren().addAll(foodBut,colthesBut,btnSend);
         kb.setPadding(new Insets(10,5,10,5));//设置子控件（与父级）上 右 下 左 的边距
         kb.setSpacing(10);//设置子控件之间的间距
         kb.setAlignment(Pos.CENTER);
