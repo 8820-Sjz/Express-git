@@ -19,8 +19,8 @@ public class Search {
 
 
     public ArrayList<String>  mainDataSearch() throws SQLException {
-        String sql = "SELECT Cid,Pid,Rid,createtime,timeliness,company_name " +
-                "FROM orders NATURAL JOIN packages NATURAL JOIN delivery NATURAL JOIN loads NATURAL JOIN vehicle NATURAL JOIN boss ";
+        String sql = "SELECT Cid,Pid,Rid,createtime,timeliness,company_name,money " +
+                "FROM orders NATURAL JOIN packages NATURAL JOIN delivery NATURAL JOIN loads NATURAL JOIN boss ;";
         ResultSet rs  = statement.executeQuery(sql);
         ArrayList<String>  text = getTest(rs);
         return text;
@@ -30,10 +30,10 @@ public class Search {
     public String changeData(String sql) throws SQLException {
         int count = statement.executeUpdate(sql);
         if(count>0){
-            System.out.println("ÐÞ¸Ä³É¹¦£¡");
+            System.out.println("ï¿½Þ¸Ä³É¹ï¿½ï¿½ï¿½");
             return "true";
         }
-        System.out.println("ÐÞ¸ÄÊ§°Ü£¡");
+        System.out.println("ï¿½Þ¸ï¿½Ê§ï¿½Ü£ï¿½");
         return "false";
 
     }
@@ -77,6 +77,7 @@ public class Search {
             res.add(sender);
             res.add(phone);
             res.add(place);
+//            res.add(Integer.toString(money));
         }
         return res;
     }
@@ -103,7 +104,7 @@ public class Search {
         String keyWord = limit.substring(0,limit.lastIndexOf("=")+1);
         String obj =limit.substring(limit.lastIndexOf("=")+1,limit.length());
 
-        String sql = "SELECT Cid,Pid,Rid,createtime,timeliness,company_name FROM orders NATURAL JOIN packages NATURAL JOIN delivery NATURAL JOIN loads NATURAL JOIN  boss where "+keyWord+"'"+obj+"'";
+        String sql = "SELECT Cid,Pid,Rid,createtime,timeliness,company_name,money FROM orders NATURAL JOIN customer NATURAL JOIN packages NATURAL JOIN delivery NATURAL JOIN loads NATURAL JOIN  boss where "+keyWord+"'"+obj+"'";
         ResultSet rs = null;
         rs  = statement.executeQuery(sql);
         ArrayList<String>  text = getTest(rs);
@@ -120,8 +121,9 @@ public class Search {
             String createtime = rs.getString("createtime");
             String timeliness = rs.getString("timeliness");
             String companyName = rs.getString("company_name");
+            int money = rs.getInt("money");
             String s = String.valueOf(cid)+','+String.valueOf(pid)+','+String.valueOf(rid)+','+
-                    createtime+','+timeliness+','+companyName;
+                    createtime+','+timeliness+','+companyName+','+String.valueOf(money);
             text.add(s);
 
         }

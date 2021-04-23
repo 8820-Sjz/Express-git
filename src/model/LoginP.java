@@ -97,21 +97,26 @@ public class LoginP extends BorderPane{
 				String id = tName.getText();
 				String pass = pp.getText();
 				String request = "2"+id+","+pass;
-				try {
-					String s = client.login(request,isRoot);
-					System.out.println("登录结果:"+s);
-					if(s!=null && s.equals("true")) {
-						Client.cid = id;
-						newShow();
-					}else {
-						Alert alert = new Alert(AlertType.WARNING);
-						alert.setContentText("账号/密码错误!");
-						alert.show();
-					}
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                if(id.equals("") || pass.equals("")){
+                    Alert alert = new Alert(AlertType.WARNING);
+                    alert.setContentText("错误输入!");
+                    alert.show();
+                }else
+                    try {
+                        String s = client.login(request,isRoot);
+                        System.out.println("登录结果:"+s);
+                        if(s!=null && s.equals("true")) {
+                            Client.cid = id;
+                            newShow();
+                        }else {
+                            Alert alert = new Alert(AlertType.WARNING);
+                            alert.setContentText("账号/密码错误!");
+                            alert.show();
+                        }
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
 
 			}
 		});
@@ -124,25 +129,31 @@ public class LoginP extends BorderPane{
 				// TODO Auto-generated method stub
 				String id = tName.getText();
 				String pass = pp.getText();
+                //System.out.println("pass: "+pass);
 				String request = "3"+id+","+pass;
-				try {
-					String s = client.login(request,isRoot);
-					System.out.println("注册结果:"+s);
+				if(id.equals("") || pass.equals("")){
+                    Alert alert = new Alert(AlertType.WARNING);
+                    alert.setContentText("错误输入!");
+                    alert.show();
+                }else
+                    try {
+                        String s = client.login(request,isRoot);
+                        System.out.println("注册结果:"+s);
 
-					if(s.equals("true")) {
-						Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setContentText("注册成功!");
-						alert.show();
-					}else {
-						Alert alert = new Alert(AlertType.WARNING);
-						alert.setContentText("账号已存在!");
-						alert.show();
-					}
-					//if(s.equals("true")) {newShow();}
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                        if(s.equals("true")) {
+                            Alert alert = new Alert(AlertType.INFORMATION);
+                            alert.setContentText("注册成功!");
+                            alert.show();
+                        }else {
+                            Alert alert = new Alert(AlertType.WARNING);
+                            alert.setContentText("账号已存在!");
+                            alert.show();
+                        }
+                        //if(s.equals("true")) {newShow();}
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
 			}
 		});
 
@@ -154,7 +165,7 @@ public class LoginP extends BorderPane{
 		SplitPane root = new MainView();
 		Scene scene = new Scene(root,980,800);
 		stage.setScene(scene);
-		stage.setTitle("Express");
+		stage.setTitle("菜鸡裹裹");
 		stage.setMinWidth(980);
 		stage.setMinHeight(800);
 		stage.setResizable(false);

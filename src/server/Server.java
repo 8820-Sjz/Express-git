@@ -25,7 +25,7 @@ public class Server {
         serve();
     }
 
-    //ÏÂµ¥
+    //add order
     public static void order(String num)throws Exception{
         int size = Integer.parseInt(num);
         ArrayList<String> list = new ArrayList<>();
@@ -41,7 +41,7 @@ public class Server {
         }
         if(list.size()!=size){
             pw.println("false");
-            System.out.println("ÏÂµ¥Ê§°Ü£ºÊý¾Ý²»×ã£¡");
+            System.out.println("ï¿½Âµï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ã£¡");
             return;
         }
         Order order = new Order();
@@ -54,28 +54,28 @@ public class Server {
         order.newLoads();
         order.newOrders(list.get(3),list.get(4));
         order.newDeal(list.get(4));
-        System.out.println("ÏÂµ¥³É¹¦£¡");
+        System.out.println("ï¿½Âµï¿½ï¿½É¹ï¿½ï¿½ï¿½");
         pw.println("true");
         pw.flush();
     }
 
-    //µÇÂ¼/×¢²á
+    //sign in / sign up
     public static void login(String line)throws Exception{
         Login login = new Login();
         char request = line.charAt(0);
         String result;
         char r = line.charAt(line.length()-1);
         String line2 = line.substring(0,line.length()-1);
-        if(request=='2'){//µÇÂ¼
+        if(request=='2'){//sign in
             result = login.signIn(line2,r);
-        }else {//×¢²á
+        }else {//sign up
             result = login.signUp(line2);
         }
         System.out.println("the result of login/sign is: "+result);
         pw.println(result);
         pw.flush();
     }
-    //ËÑË÷/Ë¢ÐÂ
+    //ï¿½ï¿½ï¿½ï¿½/Ë¢ï¿½ï¿½
     public static void search(String line) throws Exception{
         ArrayList<String> list = new ArrayList<>();
         list.clear();
@@ -88,7 +88,7 @@ public class Server {
         }else{
             list = search1.mainDataSearch(line.substring(1));
         }
-        System.out.println("¹²²éÑ¯µ½Êý¾Ý: "+list.size()+"Ìõ");
+        System.out.println("ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: "+list.size()+"ï¿½ï¿½");
         pw.println(list.size());
         pw.flush();
         for (String text: list) {
@@ -97,7 +97,7 @@ public class Server {
         }
 
     }
-    //ÏêÏ¸½çÃæÐÅÏ¢»ñÈ¡
+    //ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½È¡
     public static void getDetail(String line) throws Exception{
         ArrayList<String> list = new ArrayList<>();
         list.clear();
@@ -114,7 +114,7 @@ public class Server {
         }else if(request== '4'){
             list = search.corespondingData4(pid);
         }
-        System.out.println("¹²²éÑ¯µ½Êý¾Ý: "+list.size()+"Ìõ");
+        System.out.println("ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: "+list.size()+"ï¿½ï¿½");
 
         pw.println(list.size());
         pw.flush();
@@ -125,7 +125,7 @@ public class Server {
         }
 
     }
-    //ÏêÏ¸ÐÅÏ¢ÐÞ¸Ä
+    //ï¿½ï¿½Ï¸ï¿½ï¿½Ï¢ï¿½Þ¸ï¿½
     public static void saveDetail(String line) throws Exception{
         Search search = new Search();
         String result = search.changeData(line);
@@ -150,27 +150,27 @@ public class Server {
 
             char request = line.charAt(0);
 
-            //--------------ËÑË÷-----------------
+            //--------------search/refresh-----------------
             if(request == '0' || request == '1') {
                 search(line);
             }
 
-            //--------------µÇÂ¼/×¢²á------------------
+            //--------------login/sign------------------
             if(request=='2'||request=='3'){
                 login(line);
             }
 
-            //--------------ÏÂµ¥----------------
+            //--------------new order----------------
             if(request=='4'){
                 order(line.substring(1));
             }
 
-            //-----------»ñÈ¡ÏêÏ¸ÐÅÏ¢-------------
+            //-----------get detail of order-------------
             if(request=='5'){
                 getDetail(line.substring(1));
             }
 
-            //-----------ÏêÏ¸ÐÅÏ¢ÐÞ¸Ä------------
+            //-----------change and save detail------------
             if(request=='6'){
                 saveDetail(line.substring(1));
             }

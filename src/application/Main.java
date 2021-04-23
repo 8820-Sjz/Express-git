@@ -16,13 +16,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             LoginP login = new LoginP();
-//            SplitPane root = new MainView();
-//            Scene scene = new Scene(root,980,800);
             Scene scene = new Scene(login,550,350);
             primaryStage.setScene(scene);
-            primaryStage.setTitle("express");
-//            primaryStage.setMinWidth(980);
-//            primaryStage.setMinHeight(800);
+            primaryStage.setTitle("菜鸡果果");
             primaryStage.setResizable(false);
             primaryStage.show();
 

@@ -11,14 +11,24 @@ public class SingleInfo extends VBox {
     private String createtime;
     private String timeliness;
     private String companyName;
+    private int money;
 
-    public SingleInfo(int cid, int pid, int rid, String createtime, String timeliness, String companyName) {
+    public SingleInfo(int cid, int pid, int rid, String createtime, String timeliness, String companyName, int money) {
         this.cid = cid;
         this.pid = pid;
         this.rid = rid;
         this.createtime = createtime;
         this.timeliness = timeliness;
         this.companyName = companyName;
+        this.money = money;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
     }
 
     public String getCompanyName() {

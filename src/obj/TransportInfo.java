@@ -13,6 +13,7 @@ public class TransportInfo {
         this.currentPos = currentPos;
         this.transportation = transportation;
         this.parcelStatus = parcelStatus;
+
     }
 
     public String getArrivalTime() {

@@ -33,7 +33,7 @@ public class Client {
         is.close();
         pw.close();
         socket.close();
-        System.out.println("±£´æ½á¹û: "+line);
+        System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: "+line);
 
         return line;
     }
@@ -49,10 +49,10 @@ public class Client {
         String parcelStatus = "";
         TransportInfo info = null;
 
-        //Ä¿Ç°ÎªÖ¹µÄÊý¾Ý¿âÖ»ÄÜ²éÑ¯³öÒ»Ìõ
+        //Ä¿Ç°ÎªÖ¹ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½Ö»ï¿½Ü²ï¿½Ñ¯ï¿½ï¿½Ò»ï¿½ï¿½
         for(int i=0; i<list.size(); i++) {
             String[] s = list.get(i).split(",");
-            if(s.length!=5) {System.out.println("ÏêÏ¸ÐÅÏ¢4»ñÈ¡³ö´í!");return null;}
+            if(s.length!=5) {System.out.println("ï¿½ï¿½Ï¸ï¿½ï¿½Ï¢4ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½!");return null;}
             arrivalTime = s[0];
             previousPos = s[1];
             currentPos = s[2];
@@ -77,7 +77,7 @@ public class Client {
             line = is.readLine();
             System.out.println(line);
             list.add(line);
-        }System.out.println("¹²¶ÁÈ¡ÏêÏ¸ÐÅÏ¢"+kind+"£º"+size+"Ìõ");
+        }System.out.println("ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ï¸ï¿½ï¿½Ï¢"+kind+"ï¿½ï¿½"+size+"ï¿½ï¿½");
         is.close();
         pw.close();
         socket.close();
@@ -101,7 +101,7 @@ public class Client {
         is.close();
         pw.close();
         socket.close();
-        System.out.println("ÏÂµ¥½á¹û: "+line);
+        System.out.println("ï¿½Âµï¿½ï¿½ï¿½ï¿½: "+line);
 
         Alert alert;
         if(line.equals("true")){
@@ -147,7 +147,7 @@ public class Client {
             line = is.readLine();
             System.out.println(line);
             list.add(line);
-        }System.out.println("¹²¶ÁÈ¡Êý¾Ý£º"+size+"Ìõ");
+        }System.out.println("ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ý£ï¿½"+size+"ï¿½ï¿½");
         socket.close();
         return list;
     }

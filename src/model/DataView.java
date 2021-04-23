@@ -55,7 +55,11 @@ public class DataView extends TableView {
         COMPANY.setCellValueFactory(new PropertyValueFactory<>("companyName"));
         COMPANY.setMinWidth(150);
 
-        this.getColumns().addAll(CID, PID, RID, CREATETIME, TIMELINESS, COMPANY);
+        TableColumn<SingleInfo, String> MONEY = new TableColumn<>("express_fee");
+        MONEY.setCellValueFactory(new PropertyValueFactory<>("money"));
+        MONEY.setMinWidth(100);
+
+        this.getColumns().addAll(CID, PID, RID, CREATETIME, TIMELINESS, COMPANY, MONEY);
 
         showDatas(collectDatas(""));
 
@@ -70,15 +74,15 @@ public class DataView extends TableView {
                 root.getCreatetimeInfo().setText(currentInfo.getCreatetime());
                 root.getTransportcompanyInfo().setText(currentInfo.getCompanyName());
                 try {
+                    System.out.println("hello");
                     ArrayList<String> res = new ArrayList<>();
-                    ArrayList<TransportInfo> outcome = new ArrayList<>();
-                    for (String info : client.corespondingData(currentInfo.getPid(),"1")) {
+                    for (String info : client.corespondingData(currentInfo.getPid(), "1")) {
                         res.add(info);
                     }
-                    for (String info : client.corespondingData(currentInfo.getPid(),"2")) {
+                    for (String info : client.corespondingData(currentInfo.getPid(), "2")) {
                         res.add(info);
                     }
-                    for (String info : client.corespondingData(currentInfo.getPid(),"3")) {
+                    for (String info : client.corespondingData(currentInfo.getPid(), "3")) {
                         res.add(info);
                     }
                     root.getPlaceInfo().getItems().add(client.corespondingData4(currentInfo.getPid()));
@@ -128,21 +132,20 @@ public class DataView extends TableView {
         try {
             client = new Client();
             if (text.equals("")) {
-                if(LoginP.isRoot==true)
+                if (LoginP.isRoot == true)
                     list = client.search("0");
                 else
-                    list = client.search("1"+"cid = "+Client.cid);
-            }
-            else {
-                if(LoginP.isRoot==true)
+                    list = client.search("1" + "cid = " + Client.cid);
+            } else {
+                if (LoginP.isRoot == true)
                     list = client.search("1" + text);
                 else {
-                    if(text.indexOf("cid")>=0||text.indexOf("Cid")>=0||text.indexOf("cId")>=0||text.indexOf("ciD")>=0
-                            ||text.indexOf("CId")>=0||text.indexOf("CiD")>=0||text.indexOf("cID")>=0||text.indexOf("CID")>=0) {
+                    if (text.indexOf("cid") >= 0 || text.indexOf("Cid") >= 0 || text.indexOf("cId") >= 0 || text.indexOf("ciD") >= 0
+                            || text.indexOf("CId") >= 0 || text.indexOf("CiD") >= 0 || text.indexOf("cID") >= 0 || text.indexOf("CID") >= 0) {
                         Alert alert = new Alert(AlertType.ERROR);
                         alert.setContentText("no root no search with cid !");
                         alert.show();
-                    }else {
+                    } else {
                         list = client.search("1" + text);
                     }
                 }
@@ -160,7 +163,8 @@ public class DataView extends TableView {
                 String createtime = s[3];
                 String timeliness = s[4];
                 String companyName = s[5];
-                SingleInfo singleInfo = new SingleInfo(cid, pid, rid, createtime, timeliness, companyName);
+                int money = Integer.parseInt(s[6]);
+                SingleInfo singleInfo = new SingleInfo(cid, pid, rid, createtime, timeliness, companyName, money);
                 singleInfos.add(singleInfo);
             }
 

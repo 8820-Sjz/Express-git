@@ -73,8 +73,9 @@ public class DetailPane extends BorderPane {
 
         centralGP.add(pid, 0, 3);
         centralGP.add(pidInfo, 1, 3);
-        centralGP.add(restoreButton,3,3);
-        centralGP.add(saveButton,4,3);
+
+        centralGP.add(restoreButton,2,6);
+        centralGP.add(saveButton,3,6);
 
         centralGP.add(destination, 0, 4);
         centralGP.add(destinationInfo, 1, 4);
@@ -84,6 +85,7 @@ public class DetailPane extends BorderPane {
         centralGP.add(typeInfo, 1, 5);
         centralGP.add(transportcompany, 2, 5);
         centralGP.add(transportcompanyInfo, 3, 5);
+
     }
 
     private void init() {
@@ -156,6 +158,7 @@ public class DetailPane extends BorderPane {
 
         rPlaceInfo = new TextField();
 
+
         saveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -199,6 +202,7 @@ public class DetailPane extends BorderPane {
     public void setsPhoneInfo(TextField sPhoneInfo) {
         this.sPhoneInfo = sPhoneInfo;
     }
+
 
     public Label getsPlaceInfo() {
         return sPlaceInfo;
