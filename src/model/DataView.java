@@ -146,7 +146,7 @@ public class DataView extends TableView {
                         alert.setContentText("no root no search with cid !");
                         alert.show();
                     } else {
-                        list = client.search("1" + text);
+                        list = client.search("1" + "cid=" + Client.cid+" and "+ text);
                     }
                 }
             }
