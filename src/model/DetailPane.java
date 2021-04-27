@@ -146,7 +146,7 @@ public class DetailPane extends BorderPane {
         sPlaceInfo = new Label();
 
 
-        recipient = new Label("ecipient:");
+        recipient = new Label("recipient:");
 
         recipientInfo = new TextField();
 

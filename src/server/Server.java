@@ -75,7 +75,7 @@ public class Server {
         pw.println(result);
         pw.flush();
     }
-    //����/ˢ��
+    //搜索
     public static void search(String line) throws Exception{
         ArrayList<String> list = new ArrayList<>();
         list.clear();
@@ -97,7 +97,7 @@ public class Server {
         }
 
     }
-    //��ϸ������Ϣ��ȡ
+    //获取详细信息
     public static void getDetail(String line) throws Exception{
         ArrayList<String> list = new ArrayList<>();
         list.clear();
@@ -125,7 +125,7 @@ public class Server {
         }
 
     }
-    //��ϸ��Ϣ�޸�
+    //保存详细信息
     public static void saveDetail(String line) throws Exception{
         Search search = new Search();
         String result = search.changeData(line);

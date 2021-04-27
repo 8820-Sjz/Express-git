@@ -20,7 +20,7 @@ public class Login {
 
     }
 
-    //µÇÂ¼
+    //ç™»å½•
     public String signIn(String text,char r)throws SQLException{
         String[] s = text.substring(1).split(",");
         if(s.length!=2){return "false";}
@@ -34,14 +34,14 @@ public class Login {
                     "where id='"+id+"' and password='"+pass+"'";
         ResultSet rs = statement.executeQuery(sql);
         if(rs.next()){
-            System.out.println("user exist£¡");
+            System.out.println("user exist!");
             return "true";
         }
-        System.out.println("user/pass error£¡");
+        System.out.println("user/pass error!");
         return "false";
     }
 
-    //×¢²á
+    //æ³¨å†Œ
     public String signUp(String text)throws SQLException{
         String[] s = text.substring(1).split(",");
         if(s.length!=2){return "false";}
@@ -53,23 +53,23 @@ public class Login {
                 "where id='"+id+"'";
         ResultSet rs = statement.executeQuery(sql1);
         if(rs.next()){
-            System.out.println("ÕËºÅÒÑ´æÔÚ£¬×¢²áÊ§°Ü£¡");
+            System.out.println("user exist!");
             return "false";
         }
         //insert into users and customer
         String sql ="INSERT into users values('"+id+"','"+pass+"')";
         int count = statement.executeUpdate(sql);
         if(count>0){
-            System.out.println("³É¹¦Ôö¼Óuser£º"+id+","+pass);
+            //System.out.println("ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½userï¿½ï¿½"+id+","+pass);
             String sql2 = "INSERT into Customer values('"+id+"','"+id+"','Wushan','Guangzhou','"+id+"')";
             int count2 = statement.executeUpdate(sql2);
             if(count2>0){
-                System.out.println("³É¹¦Ôö¼Ócustomer£º"+id);
+                //System.out.println("ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½customerï¿½ï¿½"+id);
                 return "true";
             }
             return "true";
         }
-        System.out.println("Ôö¼ÓÊ§°Ü£º"+id+","+pass);
+        //System.out.println("ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½"+id+","+pass);
         return "false";
     }
 }

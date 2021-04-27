@@ -118,7 +118,7 @@ public class Order {
                 "where cid = '"+cid+"' and company_name = '"+company[v]+"';";
         ResultSet rs = statement.executeQuery(sql1);
         if(rs.next()){
-            System.out.println("this deal is exist£¡");
+            System.out.println("this deal is existï¿½ï¿½");
             return "true";
         }
 
