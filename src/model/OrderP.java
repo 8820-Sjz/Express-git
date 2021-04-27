@@ -182,7 +182,6 @@ public class OrderP extends GridPane {
 				//System.out.println(texConsignee.getText()==null);
 			}
 		});
-
 	}
 
 	//判断输入框是否为空
