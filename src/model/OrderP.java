@@ -175,6 +175,9 @@ public class OrderP extends GridPane {
 			@Override
 			public void handle(ActionEvent event) {
 				calculate();
+				Alert alert = new Alert(Alert.AlertType.INFORMATION);
+				alert.setContentText("express charges : "+money);
+				alert.show();
 				System.out.println(weight+" kg---"+set[packing]+"---"+time[deadline]+" : "+money+"元");
 				//System.out.println(texConsignee.getText()==null);
 			}
@@ -237,9 +240,6 @@ public class OrderP extends GridPane {
 			if(deadline==0)money+=20;
 			else if(deadline==1)money+=4;
 		}
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setContentText("express charges : "+money);
-		alert.show();
 	}
 
 	//获取当前时间
